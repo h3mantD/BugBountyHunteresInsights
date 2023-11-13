@@ -13,17 +13,15 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table): void {
+        Schema::create('user_platforms', function (Blueprint $table): void {
             $table->ulid();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignUlid(column: 'user_id')->constrained(table: 'users');
 
-            $table->json('otp_details')->nullable();
-            $table->json('hof')->nullable();
+            $table->string(column: 'platform');
+            $table->string(column: 'username');
+            $table->json(column: 'stats');
 
+            $table->timestamp(column: 'last_updated_on');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_platforms');
     }
 };
