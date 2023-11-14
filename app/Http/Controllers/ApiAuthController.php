@@ -19,7 +19,7 @@ final class ApiAuthController extends Controller
     public function login(LoginRequest $request, QueriesUser $user): JsonResponse
     {
         $request->authenticate();
-        $token = $user->createToken(userId: Auth::user()->id, name: $request->userAgent());
+        $token = $user->createToken(userId: Auth::user()?->id, name: $request->userAgent());
 
         return $this->successResponse(
             data: ['status' => true, 'message' => 'Authenticated Successfully!', 'token' => $token->plainTextToken]
