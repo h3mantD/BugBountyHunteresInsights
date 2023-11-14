@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+final class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        //
+        // code
     }
 
     /**
@@ -19,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Loader Alias
+        $loader = AliasLoader::getInstance();
+
+        // SANCTUM CUSTOM PERSONAL-ACCESS-TOKEN
+        $loader->alias(\Laravel\Sanctum\PersonalAccessToken::class, \App\Models\Sanctum\PersonalAccessToken::class);
     }
 }
