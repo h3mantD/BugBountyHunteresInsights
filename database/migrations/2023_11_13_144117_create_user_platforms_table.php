@@ -21,6 +21,7 @@ return new class() extends Migration
             $table->string(column: 'username');
             $table->json(column: 'stats');
 
+            $table->boolean(column: 'verified')->default(value: false);
             $table->timestamp(column: 'last_updated_on');
             $table->timestamps();
         });

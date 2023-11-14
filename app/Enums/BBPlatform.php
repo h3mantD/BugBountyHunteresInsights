@@ -10,6 +10,11 @@ enum BBPlatform: string
     case BUGCROWD = 'bugcrowd';
     case YESWEHACK = 'yeswehack';
 
+    public static function getValues(): array
+    {
+        return array_column(array: self::cases(), column_key: 'value');
+    }
+
     public function statUrl(string $username)
     {
         return match ($this) {
