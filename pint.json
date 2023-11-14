@@ -1,11 +1,7 @@
 {
     "preset": "laravel",
     "rules": {
-        "align_multiline_comment": [
-            "phpdocs_only",
-            "phpdocs_like",
-            "all_multiline"
-        ],
+        "align_multiline_comment": true,
         "array_indentation": true,
         "blank_line_after_namespace": true,
         "blank_line_after_opening_tag": true,
