@@ -27,5 +27,6 @@ final class AppServiceProvider extends ServiceProvider
 
         // SANCTUM CUSTOM PERSONAL-ACCESS-TOKEN
         $loader->alias(\Laravel\Sanctum\PersonalAccessToken::class, \App\Models\Sanctum\PersonalAccessToken::class);
+        $loader->alias(\Ichtrojan\Otp\Models\Otp::class, \App\Models\Otp::class);
     }
 }
