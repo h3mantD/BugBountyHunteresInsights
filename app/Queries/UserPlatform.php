@@ -24,4 +24,11 @@ final class UserPlatform
             ->ofPlatformAndUsername($platform, $username)
             ->exists();
     }
+
+    public function getByPlatform(BBPlatform $platform): UserPlatformModel
+    {
+        return UserPlatformModel::query()
+            ->ofPlatform($platform)
+            ->first();
+    }
 }

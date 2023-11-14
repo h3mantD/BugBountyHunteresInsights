@@ -45,6 +45,7 @@ final class AddPlatformRequest extends FormRequest
         $this->validate(rules: ['username' => [Rule::notIn($userNames)]]);
 
         $validatedData['user_id'] = Auth::user()->id;
+        $validatedData['verified'] = false;
 
         return $validatedData;
     }

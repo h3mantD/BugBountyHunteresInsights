@@ -16,6 +16,7 @@ use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
  * @method \MongoDB\Laravel\Eloquent\Builder ofPlatformAndUsername(\App\Enums\BBPlatform $platform, string $username)
+ * @method \MongoDB\Laravel\Eloquent\Builder ofPlatform(\App\Enums\BBPlatform $platform)
  */
 final class UserPlatform extends Model
 {
@@ -55,9 +56,14 @@ final class UserPlatform extends Model
         );
     }
 
+    public function scopeOfPlatform(Builder $query, BBPlatform $platform): void
+    {
+        $query->where('platform', $platform->value);
+    }
+
     public function scopeOfPlatformAndUsername(Builder $query, BBPlatform $platform, string $username): void
     {
-        $query->where('user_id', Auth::user()?->id)->where('platform', $platform->value)->where('username', $username);
+        $query->where('platform', $platform->value)->where('username', $username);
     }
 
     /**

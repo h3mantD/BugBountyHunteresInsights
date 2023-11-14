@@ -9,3 +9,4 @@ Route::get('/', [PlatformController::class, 'all'])->name('all');
 Route::post('/add', [PlatformController::class, 'add'])->name('add');
 Route::post('/delete', [PlatformController::class, 'delete'])->name('delete');
 Route::post('{platform}/edit', [PlatformController::class, 'edit'])->name('edit');
+Route::post('{platform}/validate', [PlatformController::class, 'validateOtp'])->name('validateOtp');
