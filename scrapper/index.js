@@ -52,7 +52,14 @@ async function connectToDbAndStoreStats(username, platformName, stats) {
 async function storeStats(username, platform, stats) {
     const filter = { username, platform, verified: true };
     const options = { upsert: true };
-    const updateDoc = { $set: { stats } };
+    // get current timestamp
+    let last_updated_on = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+    const updateDoc = {
+        $set: { stats, last_updated_on },
+    };
 
     await pivot_collection.updateOne(filter, updateDoc, options);
 }
