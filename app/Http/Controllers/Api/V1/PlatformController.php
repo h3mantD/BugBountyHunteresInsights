@@ -15,6 +15,7 @@ use App\Services\UserPlatformService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 final class PlatformController extends Controller
 {
@@ -66,5 +67,18 @@ final class PlatformController extends Controller
         }
 
         return $this->errorResponse(data: ['status' => false, 'message' => $result['message']]);
+    }
+
+    public function updateStats(Request $request): JsonResponse
+    {
+        try {
+            $request->validate(rules: ['platform' => ['required', 'string'], 'username' => ['required', 'string']]);
+
+            return $this->successResponse(
+                data: ['status' => true, 'message' => 'We are processing your stats update request!']
+            );
+        } catch (Throwable $th) {
+            return $this->errorResponse(data: ['status' => false, 'message' => $th->getMessage()]);
+        }
     }
 }
