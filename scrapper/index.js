@@ -9,7 +9,7 @@ dotenv.config();
 
 // Database connection and collection setup
 const uri = process.env.DB_URI;
-const db_name = process.env.DB_NAME;
+const db_name = process.env.DB_DATABASE;
 const client = new MongoClient(uri);
 const database = client.db(db_name);
 const pivot_collection = database.collection("user_platforms");
