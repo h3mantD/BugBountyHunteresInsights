@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,5 +31,11 @@ final class AppServiceProvider extends ServiceProvider
         // SANCTUM CUSTOM PERSONAL-ACCESS-TOKEN
         $loader->alias(\Laravel\Sanctum\PersonalAccessToken::class, \App\Models\Sanctum\PersonalAccessToken::class);
         $loader->alias(\Ichtrojan\Otp\Models\Otp::class, \App\Models\Otp::class);
+
+        Scramble::extendOpenApi(function (OpenApi $openApi): void {
+            $openApi->secure(
+                SecurityScheme::http('bearer', 'JWT')
+            );
+        });
     }
 }

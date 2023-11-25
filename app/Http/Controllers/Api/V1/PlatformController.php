@@ -21,6 +21,13 @@ final class PlatformController extends Controller
 {
     use ApiResponses;
 
+    /**
+     * Returns all platforms of a user.
+     *
+     * @authenticated
+     *
+     * @response array{status: bool, platforms: array<string, string>}
+     */
     public function all(User $user): JsonResponse
     {
         return $this->successResponse(
@@ -28,6 +35,13 @@ final class PlatformController extends Controller
         );
     }
 
+    /**
+     * Add a platform to a user.
+     *
+     * @authenticated
+     *
+     * @response array{status: bool, message: 'Platform added successfully! Otp sent to your email.'}
+     */
     public function add(
         AddPlatformRequest $addPlatformRequest,
         UserPlatformService $userPlatformService,
@@ -42,6 +56,13 @@ final class PlatformController extends Controller
         );
     }
 
+    /**
+     * Delete a platform of a user.
+     *
+     * @authenticated
+     *
+     * @response array{status: bool, message: 'Platform deleted successfully!'}
+     */
     public function delete(
         DeletePlatformRequest $deletePlatformRequest,
         UserPlatformService $userPlatformService
@@ -57,9 +78,21 @@ final class PlatformController extends Controller
         );
     }
 
+    /**
+     * Validated Otp
+     *
+     * @authenticated
+     *
+     * @param  \App\Enums\BBPlatform  $platform Platform name.
+     *
+     * @response array{status: bool, message: 'Otp validated successfully!'}
+     */
     public function validateOtp(string $platform, Request $request, OtpService $otpService): JsonResponse
     {
-        $request->validate(rules: ['otp' => ['required', 'string']]);
+        $request->validate(rules: [
+            // OTP
+            'otp' => ['required', 'string'],
+        ]);
         $result = $otpService->validateOtp(platform: BBPlatform::tryFrom($platform), otp: $request->get(key: 'otp'));
 
         if ($result['status']) {
@@ -69,10 +102,24 @@ final class PlatformController extends Controller
         return $this->errorResponse(data: ['status' => false, 'message' => $result['message']]);
     }
 
+    /**
+     * Update stats of a platform.
+     *
+     * @authenticated
+     *
+     * @response array{status: bool, message: 'We are processing your stats update request!'}
+     */
     public function updateStats(Request $request): JsonResponse
     {
         try {
-            $request->validate(rules: ['platform' => ['required', 'string'], 'username' => ['required', 'string']]);
+            $request->validate(
+                rules: [
+                    // @var \App\Enums\BBPlatform Platform name.
+                    'platform' => ['required', 'string'],
+                    // Username of the platform.
+                    'username' => ['required', 'string'],
+                ]
+            );
 
             return $this->successResponse(
                 data: ['status' => true, 'message' => 'We are processing your stats update request!']

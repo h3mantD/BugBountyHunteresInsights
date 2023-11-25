@@ -27,7 +27,15 @@ final class DeletePlatformRequest extends FormRequest
     public function rules(): array
     {
         return [
+            /**
+             * Platform name.
+             *
+             * @var \App\Enums\BBPlatform
+             */
             'platform' => ['required', 'string'],
+            /**
+             * Username of the platform.
+             */
             'username' => ['required', 'string'],
         ];
     }

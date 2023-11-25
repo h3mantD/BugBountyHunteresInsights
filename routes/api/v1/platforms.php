@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PlatformController::class, 'all'])->name('all');
 Route::post('/add', [PlatformController::class, 'add'])->name('add');
-Route::post('/delete', [PlatformController::class, 'delete'])->name('delete');
+Route::post('{platform}/validate', [PlatformController::class, 'validateOtp'])->name('validate-otp');
 Route::post('/update-stats', [PlatformController::class, 'updateStats'])->name('update-stats');
-Route::post('{platform}/edit', [PlatformController::class, 'edit'])->name('edit');
-Route::post('{platform}/validate', [PlatformController::class, 'validateOtp'])->name('validateOtp');
+Route::post('/delete', [PlatformController::class, 'delete'])->name('delete');
