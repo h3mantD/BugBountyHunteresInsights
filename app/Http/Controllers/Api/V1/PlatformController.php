@@ -83,7 +83,7 @@ final class PlatformController extends Controller
      *
      * @authenticated
      *
-     * @param  \App\Enums\BBPlatform  $platform Platform name.
+     * @param  string  $platform Platform name.
      *
      * @response array{status: bool, message: 'Otp validated successfully!'}
      */
